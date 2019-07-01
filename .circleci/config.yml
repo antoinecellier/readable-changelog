@@ -82,14 +82,14 @@ jobs:
           root: .
           paths: .
 
-  check-bundles-sizes:
-    executor: default-executor
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: 'Check bundles sizes'
-          command: npm run bundlesize
+  # check-bundles-sizes:
+  #   executor: default-executor
+  #   steps:
+  #     - attach_workspace:
+  #         at: .
+  #     - run:
+  #         name: 'Check bundles sizes'
+  #         command: npm run bundlesize
 
   deploy:
     executor: default-executor
