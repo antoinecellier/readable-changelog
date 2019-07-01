@@ -18,6 +18,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import marked from 'marked'
 
 export default {
   name: 'Historic',
