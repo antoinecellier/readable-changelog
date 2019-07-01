@@ -126,9 +126,9 @@ workflows:
             - check-linter
             - run-unit-tests
             - run-e2e-tests
-      - check-bundles-sizes:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - check-bundles-sizes
+      # - check-bundles-sizes:
+      #     requires:
+      #       - build
+      # - deploy:
+      #     requires:
+      #       - check-bundles-sizes
