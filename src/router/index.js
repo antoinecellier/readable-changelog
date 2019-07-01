@@ -4,8 +4,6 @@ import Head from 'vue-head'
 import { isNil } from 'lodash'
 import Home from '@/views/Home'
 import CheckLogin from '@/views/CheckLogin'
-import Changelog from '@/views/Changelog'
-import Historic from '@/views/Historic'
 import store from '@/store'
 
 Vue.use(Router)
@@ -42,7 +40,9 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: () =>
-        import(/* webpackChunkName: "client-chunk-login" */ '@/views/Login.vue'),
+        import(
+          /* webpackChunkName: "client-chunk-login" */ '@/views/Login.vue'
+        ),
       meta: {
         authNotRequired: true
       }
@@ -51,13 +51,17 @@ const router = new Router({
       path: '/changelog',
       name: 'changelog',
       component: () =>
-        import(/* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue')
+        import(
+          /* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue'
+        )
     },
     {
       path: '/historic',
       name: 'historic',
       component: () =>
-        import(/* webpackChunkName: "client-chunk-historic" */ '@/views/Historic.vue')
+        import(
+          /* webpackChunkName: "client-chunk-historic" */ '@/views/Historic.vue'
+        )
     },
     { path: '*', redirect: '/home' }
   ]

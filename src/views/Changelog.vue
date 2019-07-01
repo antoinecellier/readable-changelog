@@ -52,7 +52,7 @@ import FurtherInformations from '@/components/furtherInformations.vue'
 import Tags from '@/components/tags'
 
 export default {
-  name: 'changelog',
+  name: 'Changelog',
   components: {
     Commits,
     Channels,

@@ -12,7 +12,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  methods: mapActions('commits', ['onTransferToChangeLog']),
-  computed: mapGetters('commits', ['noCommitsSelected'])
+  computed: mapGetters('commits', ['noCommitsSelected']),
+  methods: mapActions('commits', ['onTransferToChangeLog'])
 }
 </script>

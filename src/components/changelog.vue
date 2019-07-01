@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-table :dataSource="changelog" :pagination="{ defaultPageSize: 5 }">
-      <a-table-column title="Logs" key="title">
+    <a-table :data-source="changelog" :pagination="{ defaultPageSize: 5 }">
+      <a-table-column key="title" title="Logs">
         <template slot-scope="record">
           <a-input
             style="margin-bottom: 5px"
@@ -10,7 +10,7 @@
               e => setChangelogTitle({ title: e.target.value, key: record.key })
             "
           />
-          <span class="commit-name" v-if="record.commitName"
+          <span v-if="record.commitName" class="commit-name"
             >Original title: {{ record.commitName }}</span
           >
         </template>

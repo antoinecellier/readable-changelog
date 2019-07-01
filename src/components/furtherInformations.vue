@@ -11,13 +11,14 @@
       <a-alert
         message="Use '<!channel>' for ping channel"
         type="info"
-        showIcon
+        show-icon
       />
     </div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
+
 export default {
   computed: {
     ...mapState('commits', ['messageWithChangelog']),

@@ -2,11 +2,11 @@
   <div>
     <div>
       <label>Choose channels :</label>
-      <a-select mode="tags" style="width: 350px" v-model="channel">
+      <a-select v-model="channel" mode="tags" style="width: 350px">
         <a-select-option
+          v-for="channel in list"
           :key="channel.id"
           :value="channel.id"
-          v-for="channel in list"
           >{{ channel.name }}</a-select-option
         >
       </a-select>
@@ -19,7 +19,6 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Channels',
-
   computed: {
     ...mapState('channels', ['list', 'selectedChannels']),
     channel: {
@@ -31,11 +30,9 @@ export default {
       }
     }
   },
-
-  methods: mapActions('channels', ['getList']),
-
   async created() {
     await this.getList()
-  }
+  },
+  methods: mapActions('channels', ['getList'])
 }
 </script>

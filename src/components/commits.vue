@@ -1,18 +1,18 @@
 <template>
   <div>
     <a-table
-      :rowSelection="{
+      :row-selection="{
         selectedRowKeys: selectedCommitsKeys,
         onChange: onSelectCommit
       }"
-      :dataSource="commitsNotSended"
+      :data-source="commitsNotSended"
       :pagination="{ defaultPageSize: 5 }"
     >
-      <a-table-column title="Commit" data-index="title" key="title" />
+      <a-table-column key="title" title="Commit" data-index="title" />
       <a-table-column
+        key="pushedDate"
         title="Pushed Date"
         data-index="pushedDate"
-        key="pushedDate"
       />
       <a-table-column key="action">
         <template slot-scope="record">

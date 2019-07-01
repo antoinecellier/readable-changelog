@@ -2,8 +2,8 @@
   <div>
     <div>
       <label>Choose tag :</label>
-      <a-select style="width: 500px" v-model="selectedTagModel" showSearch>
-        <a-select-option :key="tag.name" :value="tag.name" v-for="tag in list"
+      <a-select v-model="selectedTagModel" style="width: 500px" show-search>
+        <a-select-option v-for="tag in list" :key="tag.name" :value="tag.name"
           >{{ tag.name }} ({{ tag.pushedDate }})</a-select-option
         >
       </a-select>
@@ -28,11 +28,9 @@ export default {
       }
     }
   },
-
-  methods: mapActions('tags', ['getList', 'onSelectTag']),
-
   async created() {
     await this.getList()
-  }
+  },
+  methods: mapActions('tags', ['getList', 'onSelectTag'])
 }
 </script>
