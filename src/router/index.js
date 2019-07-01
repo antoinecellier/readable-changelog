@@ -40,9 +40,7 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: () =>
-        import(
-          /* webpackChunkName: "client-chunk-login" */ '@/views/Login.vue'
-        ),
+        import(/* webpackChunkName: "client-chunk-login" */ '@/views/Login.vue'),
       meta: {
         authNotRequired: true
       }
@@ -51,17 +49,13 @@ const router = new Router({
       path: '/changelog',
       name: 'changelog',
       component: () =>
-        import(
-          /* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue'
-        )
+        import(/* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue')
     },
     {
       path: '/historic',
       name: 'historic',
       component: () =>
-        import(
-          /* webpackChunkName: "client-chunk-historic" */ '@/views/Historic.vue'
-        )
+        import(/* webpackChunkName: "client-chunk-historic" */ '@/views/Historic.vue')
     },
     { path: '*', redirect: '/home' }
   ]

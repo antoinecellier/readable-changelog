@@ -32,7 +32,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
-  name: 'Changelog',
+  name: 'Features',
 
   computed: {
     ...mapState('commits', ['changelog'])

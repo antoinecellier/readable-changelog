@@ -24,7 +24,7 @@
 
     <a-row :gutter="48">
       <a-col :span="12">
-        <Changelog />
+        <Features />
       </a-col>
       <a-col :span="12">
         <Preview />
@@ -43,7 +43,7 @@
 
 <script>
 import Commits from '@/components/commits.vue'
-import Changelog from '@/components/changelog.vue'
+import Features from '@/components/Features.vue'
 import Channels from '@/components/channels.vue'
 import Transfer from '@/components/transfer.vue'
 import Preview from '@/components/preview.vue'
@@ -57,7 +57,7 @@ export default {
     Commits,
     Channels,
     Transfer,
-    Changelog,
+    Features,
     Preview,
     Send,
     FurtherInformations,
