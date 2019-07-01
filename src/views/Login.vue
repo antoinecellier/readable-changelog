@@ -3,6 +3,7 @@
     <h1 class="login-page-title">Login page</h1>
 
     <!-- Loader -->
+    {{ user === undefined }}
     <div v-show="user === undefined" data-test="loader">Authenticating...</div>
 
     <!-- Offline instruction -->

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <div class="main-wrapper">
+    <a-layout-content class="content">
       <router-view />
-    </div>
+    </a-layout-content>
 
     <new-content-available-toastr
       v-if="newContentAvailable"
@@ -20,10 +20,10 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions, mapGetters } from 'vuex'
 import NavBar from '@/components/NavBar'
 import NewContentAvailableToastr from '@/components/NewContentAvailableToastr'
 import AppleAddToHomeScreenModal from '@/components/AppleAddToHomeScreenModal'
-import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: { NavBar, NewContentAvailableToastr, AppleAddToHomeScreenModal },

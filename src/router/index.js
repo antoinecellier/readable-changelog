@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Head from 'vue-head'
+import { isNil } from 'lodash'
 import Home from '@/views/Home'
 import CheckLogin from '@/views/CheckLogin'
-import { isNil } from 'lodash'
+import Changelog from '@/views/Changelog'
+import Historic from '@/views/Historic'
 import store from '@/store'
 
 Vue.use(Router)
@@ -46,17 +48,16 @@ const router = new Router({
       }
     },
     {
-      path: '/products',
-      name: 'products',
+      path: '/changelog',
+      name: 'changelog',
       component: () =>
-        import(/* webpackChunkName: "client-chunk-products" */ '@/views/Products.vue')
+        import(/* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue')
     },
     {
-      path: '/products/:id',
-      name: 'product',
-      props: true,
+      path: '/historic',
+      name: 'historic',
       component: () =>
-        import(/* webpackChunkName: "client-chunk-product-details" */ '@/views/Product.vue')
+        import(/* webpackChunkName: "client-chunk-historic" */ '@/views/Historic.vue')
     },
     { path: '*', redirect: '/home' }
   ]
