@@ -17,9 +17,9 @@ export default {
       .map(({ pushedDate }) => pushedDate)
     if (previousDateTags.length) {
       const previousDateTag = max(...previousDateTags)
-      state.previousTag = state.list.find(tag => {
-        return isEqual(tag.pushedDate, previousDateTag)
-      }).name
+      state.previousTag = state.list.find(tag =>
+        isEqual(tag.pushedDate, previousDateTag)
+      ).name
     } else {
       state.previousTag = 'FIRST_COMMIT'
     }
