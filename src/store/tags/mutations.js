@@ -1,5 +1,5 @@
 import keyBy from 'lodash/keyBy'
-import { max, isBefore } from 'date-fns'
+import { max, isBefore, isEqual } from 'date-fns'
 
 export default {
   setList: (state, list) => (state.list = list),
@@ -9,15 +9,19 @@ export default {
   setRepositoryCreatedDate: (state, date) =>
     (state.repositoryCreatedDate = date),
   setSelectedTag: (state, selectedTag) => (state.selectedTag = selectedTag),
-  setLastCommitDateToRetrieve: state => {
-    const isPastOfOldTagDate = state.list
+  setPreviousTag: state => {
+    const previousDateTags = state.list
       .filter(tag =>
         isBefore(tag.pushedDate, state.listByName[state.selectedTag].pushedDate)
       )
       .map(({ pushedDate }) => pushedDate)
-
-    state.lastCommitDateToRetrieve = isPastOfOldTagDate.length
-      ? max(...isPastOfOldTagDate).toISOString()
-      : state.repositoryCreatedDate
+    if (previousDateTags.length) {
+      const previousDateTag = max(...previousDateTags)
+      state.previousTag = state.list.find(tag =>
+        isEqual(tag.pushedDate, previousDateTag)
+      ).name
+    } else {
+      state.previousTag = 'FIRST_COMMIT'
+    }
   }
 }

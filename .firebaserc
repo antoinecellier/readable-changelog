@@ -1,5 +1,15 @@
 {
   "projects": {
-    "default": "readable-commit"
+    "default": "readable-commit",
+    "dev": "readable-changelog-dev"
+  },
+  "targets": {
+    "readable-commit": {
+      "hosting": {
+        "readable-commit": [
+          "readable-changelog.firebaseapp.com"
+        ]
+      }
+    }
   }
 }
