@@ -1,75 +1,84 @@
-import { GraphQLClient } from 'graphql-request'
+//import { GraphQLClient } from 'graphql-request'
 import { format } from 'date-fns'
 
-const githubEndPoint = 'https://api.github.com/graphql'
+// const githubEndPoint = 'https://api.github.com/graphql'
 const githubToken = process.env.VUE_APP_GITHUB_TOKEN
 
-const graphQLClient = new GraphQLClient(githubEndPoint, {
-  headers: {
-    authorization: `Bearer ${githubToken}`
-  }
-})
+// const graphQLClient = new GraphQLClient(githubEndPoint, {
+//   headers: {
+//     authorization: `Bearer ${githubToken}`
+//   }
+// })
 
-const query = since => `{
-    repository(name: "ices", owner: "Zenika") {
-        ref(qualifiedName: "master") {
-        target {
-            ... on Commit {
-            id
-            history(since: "${since}") {
-                pageInfo {
-                  hasNextPage
-                }
-                edges {
-                  node {
-                    messageHeadlineHTML
-                    oid
-                    message
-                    url
-                    pushedDate
-                    associatedPullRequests(first: 1){
-                      edges{
-                        node{
-                          url
-                        }
-                      }
-                    }
-                    author {
-                      name
-                      email
-                      date
-                    }
-                  }
-                }
-            }
-            }
-        }
-        }
+const getCommits = async (selectedTag, previousTag) => {
+  const rep = await fetch(
+    `https://api.github.com/repos/zenika/ices/compare/${previousTag}...${selectedTag}`,
+    {
+      headers: {
+        authorization: `Bearer ${githubToken}`,
+        Accept: 'application/vnd.github.cloak-preview'
+      }
     }
-}`
+  )
+  const json = await rep.json()
+  return json.commits.map(({ commit, sha, html_url }) => ({
+    key: sha,
+    title: commit.message,
+    url: html_url,
+    pushedDate: format(commit.committer.date, 'MM/DD/YYYY')
+  }))
+}
+
+// const query = commits =>
+//   commits
+//     .map(
+//       ({ key, url }) => `
+//   ${key.replace(/[0-9]/g, '')}:resource(url: "${url}") {
+//     resourcePath
+//     url
+//     ... on Commit {
+//       id
+//       history {
+//         pageInfo {
+//           hasNextPage
+//         }
+//         edges {
+//           node {
+//             messageHeadlineHTML
+//             oid
+//             message
+//             url
+//             pushedDate
+//             associatedPullRequests(first: 1) {
+//               edges {
+//                 node {
+//                   url
+//                 }
+//               }
+//             }
+//             author {
+//               name
+//               email
+//               date
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+// `
+//     )
+//     .join(' ')
 
 export default {
-  getList: async ({ commit, rootState }) => {
-    const response = await graphQLClient.request(
-      query(rootState.tags.lastCommitDateToRetrieve)
+  getList: async ({ commit, rootGetters }) => {
+    const commits = await getCommits(
+      rootGetters['tags/getSelectedTag'].oid,
+      rootGetters['tags/getPreviousTag'].oid
     )
-    const commits = response.repository.ref.target.history.edges.map(
-      ({
-        node: {
-          oid,
-          messageHeadlineHTML,
-          url,
-          pushedDate,
-          associatedPullRequests: { edges: pullRequests = [] }
-        }
-      }) => ({
-        key: oid,
-        title: messageHeadlineHTML.replace(/(<([^>]+)>)/gi, ''),
-        url,
-        pushedDate: format(pushedDate, 'DD/MM/YYYY'),
-        pullRequest: pullRequests.length && pullRequests[0].node.url
-      })
-    )
+
+    // await graphQLClient.request(`{ ${query(commits)} }`)
 
     commit('setList', commits)
     commit('setListByKey', commits)

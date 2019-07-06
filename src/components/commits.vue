@@ -19,17 +19,6 @@
           <span>
             <a-tooltip placement="left">
               <template slot="title">
-                <span>Pull request detail</span>
-              </template>
-              <a-button
-                :disabled="!record.pullRequest"
-                @click="goTo(record.pullRequest)"
-              >
-                <a-icon type="branches" />
-              </a-button>
-            </a-tooltip>
-            <a-tooltip placement="right">
-              <template slot="title">
                 <span>Commit detail</span>
               </template>
               <a-button @click="goTo(record.url)">#</a-button>

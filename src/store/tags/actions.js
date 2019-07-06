@@ -9,9 +9,29 @@ const graphQLClient = new GraphQLClient(githubEndPoint, {
   }
 })
 
-const query = `{
+const getFirstCommitQuery = async () => {
+  const rep = await fetch(
+    'https://api.github.com/search/commits?q=repo:zenika/ices+AND:sort:committer-date-asc',
+    {
+      headers: {
+        authorization: `Bearer ${githubToken}`,
+        Accept: 'application/vnd.github.cloak-preview'
+      }
+    }
+  )
+  const json = await rep.json()
+  const {
+    sha,
+    commit: {
+      author: { date }
+    }
+  } = json.items[0]
+  return { name: 'FIRST_COMMIT', oid: sha, pushedDate: date }
+}
+
+const tagsQuery = `{
   repository(name: "ices", owner: "Zenika") {
-    tags: refs(refPrefix: "refs/tags/",  last: 30) {
+    tags: refs(refPrefix: "refs/tags/",  last: 100) {
       edges {
         node {
           name
@@ -20,6 +40,7 @@ const query = `{
           }
           target {    
             ... on Commit {
+              oid
               pushedDate
             }
           }
@@ -31,22 +52,25 @@ const query = `{
 
 export default {
   getList: async ({ commit }) => {
-    const response = await graphQLClient.request(query)
+    const firstCommit = await getFirstCommitQuery()
+    const response = await graphQLClient.request(tagsQuery)
     const tags = response.repository.tags.edges.map(
       ({
         node: {
           name,
-          target: { pushedDate }
+          target: { pushedDate, oid }
         }
       }) => ({
         name,
-        pushedDate
+        pushedDate,
+        oid
       })
     )
+    const tagsAndFirstCommit = [firstCommit, ...tags]
 
-    commit('setList', tags)
-    commit('setListByName', tags)
-    commit('setListByDate', tags)
+    commit('setList', tagsAndFirstCommit)
+    commit('setListByName', tagsAndFirstCommit)
+    commit('setListByDate', tagsAndFirstCommit)
     commit(
       'setRepositoryCreatedDate',
       response.repository.tags.edges[0].node.repository.createdAt
@@ -55,18 +79,7 @@ export default {
 
   onSelectTag: ({ commit, dispatch }, tagName) => {
     commit('setSelectedTag', tagName)
-    commit('setLastCommitDateToRetrieve')
+    commit('setPreviousTag')
     dispatch('commits/getList', null, { root: true })
   }
-
-  // onTransferToChangeLog: ({ commit }) => {
-  //   commit("fromCommitsToChangelog");
-  //   commit("cleanSelectedCommitsKeys");
-  //   commit("formatChangelogWithoutGitRef");
-  // },
-
-  // onRemoveChangelogRow: ({ commit }, key) => {
-  //   commit("removeChangelogKey", key);
-  //   commit("addCommitNotSended", key);
-  // }
 }

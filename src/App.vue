@@ -4,7 +4,6 @@
     <a-layout-content class="content">
       <router-view />
     </a-layout-content>
-
     <new-content-available-toastr
       v-if="newContentAvailable"
       class="new-content-available-toastr"
