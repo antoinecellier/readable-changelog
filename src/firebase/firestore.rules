@@ -10,6 +10,13 @@ service cloud.firestore {
        allow update, delete: if authenticated();
     }
 
+    match /categories/{categories} {
+       allow get: if authenticated();
+       allow list: if authenticated();
+       allow create: if authenticated();
+       allow update, delete: if authenticated();
+    }
+
     match /users/{userId} {
        allow get: if authenticated() && request.auth.uid == userId;
        allow create: if authenticated() && request.auth.uid == userId;

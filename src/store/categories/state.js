@@ -1,5 +1,4 @@
 export default {
   list: [],
-  listById: {},
-  selectedChannels: []
+  listById: {}
 }

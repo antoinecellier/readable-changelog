@@ -3,21 +3,25 @@
     <a-col :span="5">
       <Category />
     </a-col>
-    <a-col :span="5">
-      <Category />
-    </a-col>
-    <a-col :span="5">
-      <Category />
-    </a-col>
   </a-row>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import Category from '@/components/Category'
 
 export default {
   components: {
     Category
+  },
+  computed: {
+    ...mapState('categories', ['list'])
+  },
+  async created() {
+    await this.getList()
+  },
+  methods: {
+    ...mapActions('categories', ['getList'])
   }
 }
 </script>
