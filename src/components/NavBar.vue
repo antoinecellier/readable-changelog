@@ -14,8 +14,11 @@
       <a-menu-item v-if="isUserLoggedIn" key="/changelog">
         <router-link :to="{ name: 'changelog' }">Changelog</router-link>
       </a-menu-item>
+      <a-menu-item v-if="isUserLoggedIn" key="/categories">
+        <router-link :to="{ name: 'categories' }">Categories</router-link>
+      </a-menu-item>
       <a-menu-item v-if="isUserLoggedIn" key="/historic">
-        <router-link :to="{ name: 'historic' }">Historic</router-link>
+        <router-link :to="{ name: 'historic' }">Historical</router-link>
       </a-menu-item>
       <a-menu-item v-if="!isUserLoggedIn" key="/login" class="nav-item">
         <router-link to="/login">Login</router-link>

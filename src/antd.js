@@ -13,7 +13,8 @@ import {
   Alert,
   Tooltip,
   List,
-  Tag
+  Tag,
+  Form
 } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
@@ -21,6 +22,10 @@ const { TextArea } = Input
 const { Header, Content } = Layout
 const { Item } = Menu
 const { Item: ListItem } = List
+const { Item: FormItem } = Form
+
+Vue.component(FormItem.name, FormItem)
+Vue.component(Form.name, Form)
 
 Vue.component(Tag.name, Tag)
 

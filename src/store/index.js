@@ -6,6 +6,7 @@ import channels from './channels'
 import historic from './historic'
 import authentication from './authentication'
 import app from './app'
+import categories from './categories'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     tags,
     historic,
     authentication,
-    app
+    app,
+    categories
   }
 })

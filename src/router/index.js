@@ -52,6 +52,12 @@ const router = new Router({
         import(/* webpackChunkName: "client-chunk-changelog" */ '@/views/Changelog.vue')
     },
     {
+      path: '/categories',
+      name: 'categories',
+      component: () =>
+        import(/* webpackChunkName: "client-chunk-historic" */ '@/views/Categories.vue')
+    },
+    {
       path: '/historic',
       name: 'historic',
       component: () =>
